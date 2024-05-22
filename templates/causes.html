@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <title>christ Mandate International - Faith-based Ministries</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicon -->
+  <link href="{% static 'img/general/favicon.ico'%}" rel="icon">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Saira:wght@500;600;700&display=swap" rel="stylesheet"> 
+
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Libraries Stylesheet -->
+  <link href="{% static 'lib/animate/animate.min.css'%}" rel="stylesheet">
+  <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+
+  <!-- Template Stylesheet -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet">
+</head>
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+
+  <!-- Navbar Start -->
+  <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+    <div class="top-bar text-white-50 row gx-0 align-items-center d-none d-lg-flex">
+      <div class="col-lg-6 px-5 text-start">
+        <a href="" style="border:; padding: 3px;"><small><i class=" me-2"></i>Become A Volunteer</small></a>
+        <small class="ms-4"><i class="fa fa-envelope me-2"></i>inbox@christmandateinternational.com</small>
+      </div>
+      <div class="col-lg-6 px-5 text-end">
+        <small>Follow us:</small>
+        <a class="text-white-50 ms-3" href="https://www.facebook.com/profile.php?id=61555359751598&mibextid=LQQJ4d"><i
+            class="fab fa-facebook-f"></i></a>
+        <a class="text-white-50 ms-3" href="https://youtube.com/@CHRISTMANDATEINTERATIONAL?si=fuC6whExKigZahC0"><i
+            class="fab fa-youtube"></i></a>
+        <a class="text-white-50 ms-3"
+          href="https://www.instagram.com/christmandateinternational?igsh=MW8xOGFwZHZ1djI1bw%3D%3D&utm_source=qr"><i
+            class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+      <a href="{% url 'home' %}" class="navbar-brand ms-4 ms-lg-0">
+        <!-- <h1 class="fw-bold text-primary m-0">Chari<span class="text-white">Team</span></h1> -->
+        <img src="{% static 'img/logo/3.png'%}" width="200px" alt="" />
+      </a>
+      <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+          <a href="{% url 'home' %}" class="nav-item nav-link ">Home</a>
+          <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
+          <a href="{% url 'programs' %}" class="nav-item nav-link active">Programs</a>
+          <a href="{% url 'events' %}" class="nav-item nav-link">Events</a>
+          <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Media</a>
+            <div class="dropdown-menu m-0">
+              <!-- <a href="service.html" class="dropdown-item">Service</a> -->
+              <a href="{% url 'gallery' %}" class="dropdown-item">Gallery</a>
+              <a href="{% url 'videos' %}" class="dropdown-item">Videos</a>
+              <!-- <a href="donate.html" class="dropdown-item">Donate</a> -->
+              <!-- <a href="404.html" class="dropdown-item">404 Page</a> -->
+            </div>
+          </div>
+          <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
+        </div>
+        <div class="d-none d-lg-flex ms-2">
+          <a class="btn btn-outline-primary py-2 px-3" href="{% url 'donate' %}">
+            Donate Now
+            <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
+              <i class="fa fa-arrow-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Navbar End -->
+
+
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center">
+            <h1 class="display-4 text-white animated slideInDown mb-4">CMI Programs</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                    <!-- <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li> -->
+                    <li class="breadcrumb-item text-primary active" aria-current="page">programs</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Causes Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Feature Programs</div>
+                <h1 class="display-6 mb-5">CMI actively running Programs</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="causes-item d-flex flex-column bg-light border-top border-5 border-primary rounded-top overflow-hidden h-100">
+                        <div class="text-center p-4 pt-0">
+                            <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
+                                <small>Fedding Program</small>
+                            </div>
+                            <h5 class="mb-3">Feeding Bodies, Nourishing Souls</h5>
+                            <p>Following the example of our Lord Jesus, who fed the people while sharing His message of hope, 
+                              CMI Outreach Ministries also participates in feeding programs during our evangelistic visits.
+                               We believe that addressing hunger is not only a humanitarian duty but also a powerful expression of God’s 
+                               love. By providing nourishment to those who are hungry, 
+                              we convey the message that they are valued, seen, and cared for by a God who provides abundantly.</p>
+                            <div class="causes-progress bg-white p-3 pt-2">
+                                <div class="d-flex justify-content-between">
+                                    <p class="text-dark">10,000 <small class="text-body">Goal</small></p>
+                                    <!-- <p class="text-dark">$9,542 <small class="text-body">Raised</small></p> -->
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                                        <span>70%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-relative mt-auto">
+                            <img class="img-fluid" src="{% static 'img/program/feeding.jpg'%}" alt="">
+                            <div class="causes-overlay">
+                                <a class="btn btn-outline-primary" href="{% url 'donate' %}">
+                                   Support Us
+                                    <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="causes-item d-flex flex-column bg-light border-top border-5 border-primary rounded-top overflow-hidden h-100">
+                        <div class="text-center p-4 pt-0">
+                            <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
+                                <small>Medical Assistance</small>
+                            </div>
+                            <h5 class="mb-3">Healing Bodies, Sharing God's Love</h5>
+                            <p>We believe that health is a precious gift, and CMI Outreach Ministries recognizes
+                               the importance of extending healing to those who are suffering physically. Our medical assistance programs aim 
+                               to bring relief to individuals facing health challenges, emphasizing that the love of Christ encompasses both spiritual and physical well-being. Through partnerships with healthcare professionals and organizations, we work towards making a meaningful impact on the health of communities as an expression of God’s love. Our medical and hunger alleviation
+                              campaigns convey the message that all people are valued, seen, and cared for by a God who provides abundantly.</p>
+                            <div class="causes-progress bg-white p-3 pt-2">
+                                <div class="d-flex justify-content-between">
+                                    <p class="text-dark">10,000+ <small class="text-body">Goal</small></p>
+                                    <!-- <p class="text-dark">$9,542 <small class="text-body">Raised</small></p> -->
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                                        <span>30%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-relative mt-auto">
+                            <img class="img-fluid" src="{% static 'img/program/medical.jpg'%}" alt="">
+                            <div class="causes-overlay">
+                              <a class="btn btn-outline-primary" href="{% url 'donate' %}">
+                                Support Us
+                                 <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                                     <i class="fa fa-arrow-right"></i>
+                                 </div>
+                              </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="causes-item d-flex flex-column bg-light border-top border-5 border-primary rounded-top overflow-hidden h-100">
+                        <div class="text-center p-4 pt-0">
+                            <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
+                                <small>Financial Support</small>
+                            </div>
+                            <h5 class="mb-3">Empowering Lives Through Financial Support</h5>
+                            <p>Financial struggles can be a significant barrier to empowerment, limiting
+                               individuals and communities from reaching their full potential. CMI Outreach 
+                               Ministries is committed to breaking these chains by offering financial support to those in need. Whether it’s helping families in crisis, supporting education initiatives, or assisting with economic empowerment projects, 
+                              we strive to be a source of hope and stability in challenging circumstances.</p>
+                            <div class="causes-progress bg-white p-3 pt-2">
+                                <div class="d-flex justify-content-between">
+                                    <p class="text-dark">10,000 <small class="text-body">Goal</small></p>
+                                    <!-- <p class="text-dark">$9,542 <small class="text-body">Raised</small></p> -->
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+                                        <span>55%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-relative mt-auto">
+                            <img class="img-fluid" src="{% static 'img/program/financial.jpg'%}" alt="Financial Support">
+                            <div class="causes-overlay">
+                                <a class="btn btn-outline-primary" href="{% url 'donate' %}">
+                                  Support Us
+                                    <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                  <div class="causes-item d-flex flex-column bg-light border-top border-5 border-primary rounded-top overflow-hidden h-100">
+                      <div class="text-center p-4 pt-0">
+                          <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
+                              <small>Holistic Ministry</small>
+                          </div>
+                          <h5 class="mb-3">Empowering Lives, Embodying Christ's Compassion</h5>
+                          <p>  
+                            Our commitment to empowerment goes beyond words; it extends to action. Recognizing 
+                            that physical and material needs often accompany spiritual ones, we engage in holistic ministry. 
+                            This involves reaching out to those facing hunger, providing medical assistance to the sick, and offering   
+                            financial support to those in need. By addressing both the spiritual and practical aspects of people’s
+                            lives, we seek to embody the love and compassion of Jesus Christ in tangible ways.</h5>
+                          <p>Tempor erat elitr rebum at clita dolor diam ipsum sit diam amet diam et eos</p>
+                          <div class="causes-progress bg-white p-3 pt-2">
+                              <div class="d-flex justify-content-between">
+                                  <p class="text-dark">10,000 <small class="text-body">Saved</small></p>
+                                  <!-- <p class="text-dark">$9,542 <small class="text-body">Raised</small></p> -->
+                              </div>
+                              <div class="progress">
+                                  <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                      <span>90%</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="position-relative mt-auto">
+                          <img class="img-fluid" src="{% static 'img/program/holistic.jpg'%}" alt="Empowering">
+                          <div class="causes-overlay">
+                              <a class="btn btn-outline-primary" href="{% url 'donate' %}">
+                                Support Us
+                                <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                                    <i class="fa fa-arrow-right"></i>
+                                </div>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <div class="causes-item d-flex flex-column bg-light border-top border-5 border-primary rounded-top overflow-hidden h-100">
+                      <div class="text-center p-4 pt-0">
+                          <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
+                              <small>Spreading the Gospel</small>
+                          </div>
+                          <h5 class="mb-3">Transforming Lives Through the Power of Christ</h5>
+                          <p> Central to our mission is the proclamation of the gospel—the good news that Jesus Christ,
+                            the Son of God, offers salvation, grace, and eternal life to all who believe. We understand 
+                            that true empowerment begins with a personal encounter with the love of Christ. Through evangelistic 
+                            initiatives, community outreach, and intentional relationships, we strive to create spaces where 
+                            individuals can experience the transformative power of the Holy Spirit and God's Word.</p>
+                          <div class="causes-progress bg-white p-3 pt-2">
+                              <div class="d-flex justify-content-between">
+                                  <p class="text-dark">100,000 <small class="text-body">Goal</small></p>
+                                  <!-- <p class="text-dark">$9,542 <small class="text-body">Raised</small></p> -->
+                              </div>
+                              <div class="progress">
+                                  <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                      <span>80%</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="position-relative mt-auto">
+                          <img class="img-fluid" src="{% static 'img/program/gospel.jpg'%}" alt="gospel">
+                          <div class="causes-overlay">
+                              <a class="btn btn-outline-primary" href="{% url 'donate' %}">
+                                Support Us
+                                <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                                    <i class="fa fa-arrow-right"></i>
+                                </div>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                  <div class="causes-item d-flex flex-column bg-light border-top border-5 border-primary rounded-top overflow-hidden h-100">
+                      <div class="text-center p-4 pt-0">
+                          <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
+                              <small>Empowering Men & Territories</small>
+                          </div>
+                          <h5 class="mb-3">Transforming Communities for Christ</h5>
+                          <p>Our ultimate goal is to empower not only individuals but entire territories for Jesus.
+                             We envision communities transformed by the love of Christ, where empowered individuals 
+                             become catalysts for positive change. This empowerment 
+                            involves equipping men and women with the tools they need to lead, serve, and influence their spheres for the kingdom of God.</p>
+                          <div class="causes-progress bg-white p-3 pt-2">
+                              <div class="d-flex justify-content-between">
+                                  <p class="text-dark">10,000 <small class="text-body">Goal</small></p>
+                                  <!-- <p class="text-dark">$9,542 <small class="text-body">Raised</small></p> -->
+                              </div>
+                              <div class="progress">
+                                  <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                      <span>90%</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="position-relative mt-auto">
+                          <img class="img-fluid" src="{% static 'img/program/empower.jpg'%}" alt="men">
+                          <div class="causes-overlay">
+                              <a class="btn btn-outline-primary" href="{% url 'donate' %}">
+                                Support Us
+                                <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                                    <i class="fa fa-arrow-right"></i>
+                                </div>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- Causes End -->
+        
+
+  <!-- Footer Start -->
+  <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+      <div class="row g-5">
+        <div class="col-lg-3 col-md-6">
+          <!-- <h1 class="fw-bold text-primary mb-4">Chari<span class="text-white">Team</span></h1> -->
+          <img class="mb-4" src="{% static 'img/logo/footer.png'%}" width="200px" alt="" />
+          <p>
+            Christ Mandate International Outreach Ministries, where our dynamic Christian evangelical outreach is fueled
+            by a passionate commitment to follow Jesus wherever He leads.
+          </p>
+          <div class="d-flex pt-2">
+            <!-- <a class="btn btn-square me-1" href=""><i class="fab fa-twitter"></i></a> -->
+            <a class="btn btn-square me-1"
+              href="https://www.facebook.com/profile.php?id=61555359751598&mibextid=LQQJ4d"><i
+                class="fab fa-facebook-f"></i></a>
+            <a class="btn btn-square me-1" href="https://youtube.com/@CHRISTMANDATEINTERATIONAL?si=fuC6whExKigZahC0"><i
+                class="fab fa-youtube"></i></a>
+            <a class="btn btn-square me-0"
+              href="https://www.instagram.com/christmandateinternational?igsh=MW8xOGFwZHZ1djI1bw%3D%3D&utm_source=qr"><i
+                class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <h5 class="text-light mb-4">Address</h5>
+          <p><i class="fa fa-map-marker-alt me-3"></i>10 Delight court estate, ikota GRA, inside ikota villa estate</p>
+          <p><i class="fa fa-envelope me-3"></i> inbox@christmandateinternational.com</p>
+          <p><i class="fa fa-phone-alt me-3"></i>+234 701-0881-815</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5 class="text-light mb-4">Quick Links</h5>
+          <a class="btn btn-link" href="{% url 'about' %}">About Us</a>
+          <a class="btn btn-link" href="{% url 'contact' %}">Contact Us</a>
+          <a class="btn btn-link" href="{% url 'programs' %}">Our Programs</a>
+          <!-- <a class="btn btn-link" href="">Terms & Condition</a> -->
+          <a class="btn btn-link" href="{% url 'events' %}">Events</a>
+          <a class="btn btn-link" href="{% url 'gallery' %}">Gallary</a>
+          <a class="btn btn-link" href="{% url 'donate' %}">Make Donation</a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-light mb-4">Newsletter</h5>
+          <p>Stay connected and informed with our newsletter! Join our community and journey with us as we share
+            the latest news and opportunities to be part of God's work around the world. </p>
+          <div class="position-relative mx-auto" style="max-width: 400px;">
+            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid copyright">
+      <div class="container">
+        <div class="row">
+          <!-- <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a href="#">Christ Mandate International Outreach Ministry, All Right Reserved.
+                    </div> -->
+          <div class="col-md-6 text-center text-md-end">
+            &copy; <a href="{% url 'home' %}">Christ Mandate International Outreach Ministry, All Right Reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/07083659432" target="_blank" class="whatsapp-button">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js'%}"></script>
+    <script src="{% static 'lib/easing/easing.min.js'%}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js'%}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
+    <script src="{% static 'lib/parallax/parallax.min.js'%}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js'%}"></script>
+</body>
+
+</html>
