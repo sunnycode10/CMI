@@ -1,0 +1,12 @@
+.carousel-caption {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgb(0 29 35 / 48%) !important;
+  z-index: 1;
+}

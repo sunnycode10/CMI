@@ -1,0 +1,20 @@
+.video-item {
+  margin-bottom: 30px;
+}
+.modal-dialog {
+  max-width: 800px;
+  margin: 1.75rem auto;
+}
+.modal-content {
+  border-radius: 10px;
+}
+.modal-body {
+  position: relative;
+  padding: 0;
+}
+.modal-body iframe {
+  width: 100%;
+  height: calc(100vw * 0.5625); /* Maintain 16:9 aspect ratio */
+  max-height: 450px; /* Set a max height */
+  border-radius: 10px;
+}
