@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import CarouselItem, AchievementItem
 from django.conf import settings
-
+from .forms import NewsletterForm
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -42,3 +44,16 @@ def contact(request):
 
 def donate(request):
     return render(request, 'donate.html')
+
+
+
+@csrf_exempt
+def subscribe_newsletter(request):
+    if request.method == 'POST':
+        form = NewsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'message': 'Thank you for subscribing!'}, status=200)
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+    return JsonResponse({'errors': 'Invalid request'}, status=400)

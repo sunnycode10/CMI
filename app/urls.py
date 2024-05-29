@@ -13,6 +13,8 @@ urlpatterns = [
   path('videos', videos, name='videos'),
   path('contact-us', contact, name='contact'),
   path('donation', donate, name='donate'),
+
+  path('subscribe/', subscribe_newsletter, name='subscribe_newsletter'),
   
 
 
