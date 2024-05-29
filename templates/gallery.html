@@ -36,6 +36,46 @@
   <!-- Added Stylesheet -->
   <link href="{% static 'css/gallery.css'%}" rel="stylesheet">
   <link href="{% static 'lightbox/lightbox.css'%}" rel="stylesheet">
+  <style>
+    /* Add this to your CSS file or within a <style> tag in your HTML */
+  .message-info {
+    padding: 10px;
+      color: #ff0000;
+      visibility: hidden;
+      opacity: 100;
+      /* transform: translateX(-50%) scale(.8); */
+      transition: all 0.2s;
+      border-left: 8px solid #20509e;
+      position: fixed;
+      width: auto;
+      /* left: 42%; */
+      top: 79%;
+      background: white;
+      z-index: 1000;
+      /* right: 32%; */
+  }
+  
+  
+  .loader {
+      border: 4px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 4px solid #3498db;
+      width: 12px;
+      height: 12px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+  }
+    </style>
 </head>
 
 
@@ -228,13 +268,19 @@
         <div class="col-lg-3 col-md-6">
           <h5 class="text-light mb-4">Newsletter</h5>
           <p>Stay connected and informed with our newsletter! Join our community and journey with us as we share
-            the latest news and opportunities to be part of God's work around the world. </p>
+              the latest news and opportunities to be part of God's work around the world. </p>
           <div class="position-relative mx-auto" style="max-width: 400px;">
-            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+              <form id="newsletter-form" method="post" action="{% url 'subscribe_newsletter' %}">
+                  {% csrf_token %}
+                  <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="email" name="email" placeholder="Your email" required>
+                  <button type="submit" class="btn btn-primary py-2 w-100 top-0 end-0 mt-2 me-2">
+                      <span class="button-text">SignUp</span>
+                      <span class="loader" style="display:none;">Loading...</span>
+                  </button>
+              </form>
+              <div id="newsletter-message" class="message-info"></div>
           </div>
-
-        </div>
+      </div>
       </div>
     </div>
     <div class="container-fluid copyright">
@@ -260,10 +306,56 @@
   <a href="https://wa.me/07083659432" target="_blank" class="whatsapp-button">
     <i class="fab fa-whatsapp"></i>
   </a>
-  <!-- WhatsApp Button -->
-  <a href="https://wa.me/07083659432" target="_blank" class="whatsapp-button">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+  <script>
+    document.getElementById('newsletter-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var form = event.target;
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+        var submitButton = form.querySelector('button');
+        var buttonText = submitButton.querySelector('.button-text');
+        var loader = submitButton.querySelector('.loader');
+        var messageDiv = document.getElementById('newsletter-message');
+
+        // Show loader and hide button text
+        loader.style.display = 'inline';
+        buttonText.style.display = 'none';
+
+        xhr.open('POST', form.action, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}'); // Make sure the CSRF token is included
+        xhr.onload = function() {
+            // Hide loader and show button text
+            loader.style.display = 'none';
+            buttonText.style.display = 'inline';
+
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                messageDiv.innerHTML = '<span class="text-success">' + response.message + '</span>';
+                form.reset();
+            } else {
+                var errors = JSON.parse(xhr.responseText).errors;
+                var errorMessages = Object.keys(errors).map(function(key) {
+                    return errors[key].join('<br>');
+                }).join('<br>');
+                messageDiv.innerHTML = '<span class="text-danger">' + errorMessages + '</span>';
+            }
+
+            // Show message div
+            messageDiv.style.visibility = 'visible';
+            messageDiv.style.opacity = '1';
+            messageDiv.style.transform = 'translateX(-50%) scale(1)';
+
+            // Hide message div after 5 seconds
+            setTimeout(function() {
+                messageDiv.style.visibility = 'hidden';
+                messageDiv.style.opacity = '0';
+                messageDiv.style.transform = 'translateX(-50%) scale(.8)';
+            }, 5000);
+        };
+        xhr.send(formData);
+    });
+</script>
 
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
