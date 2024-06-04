@@ -8,6 +8,8 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 # Create your views here.
 
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
 def home(request):
@@ -49,13 +51,25 @@ def contact(request):
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
             
-            # Send email
-            send_mail(
+            # Render the email content from the template
+            email_content = render_to_string('contact_email.html', {
+                'name': name,
+                'email': email,
+                'subject': subject,
+                'message': message,
+            })
+            # Create the email
+            email_message = EmailMultiAlternatives(
                 subject,
-                f"Message from {name} ({email}):\n\n{message}",
+                email_content,
                 settings.EMAIL_HOST_USER,  # From email
                 [settings.CONTACT_EMAIL, 'cmioutreachministry@gmail.com'],  # To email
             )
+
+            email_message.content_subtype = 'html'  # Main content is text/html
+
+            # Send the email
+            email_message.send()
 
             request.session['contact_form_submitted'] = True
 

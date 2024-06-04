@@ -146,6 +146,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.office365.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'inbox@christmandateinternational.com'
-EMAIL_HOST_PASSWORD = 'Daddy12345$'
-CONTACT_EMAIL = 'inbox@christmandateinternational.com'
+EMAIL_HOST_USER =  os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL')
+
+ALT_CONTACT_EMAIL = os.environ.get('ALT_CONTACT_EMAIL')
