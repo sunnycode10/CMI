@@ -14,6 +14,7 @@ urlpatterns = [
   path('contact-us', contact, name='contact'),
   path('donation', donate, name='donate'),
 
+  path('contact/success/', contact_success, name='contact_success'),
   path('subscribe/', subscribe_newsletter, name='subscribe_newsletter'),
   
 

@@ -71,6 +71,24 @@
       100% { transform: rotate(360deg); }
   }
     </style>
+       <style>
+        .loading-spinner {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 1000;
+        }
+        .loading-spinner .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
 </head>
 
 
@@ -169,43 +187,53 @@
             contact form below or use one of the other methods provided.
             <a target="_blank" href="{% static 'CMI_brochure.pdf' %}">Download Brochure</a>.
           </p>
-          <form>
+          <form method="post" novalidate id="contact-form">
+            {% csrf_token %}
             <div class="row g-3">
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="name" placeholder="Your Name">
-                  <label for="name">Your Name</label>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" value="{{ form.name.value|default_if_none:'' }}">
+                        <label for="name">Your Name</label>
+                        <div class="text-danger">{{ form.name.errors }}</div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input type="email" class="form-control" id="email" placeholder="Your Email">
-                  <label for="email">Your Email</label>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="email" name="email"  placeholder="Your Email" required value="{{ form.email.value|default_if_none:'' }}">
+                        <label for="email">Your Email</label>
+                        <div class="text-danger">{{ form.email.errors }}</div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-12">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="subject" placeholder="Subject">
-                  <label for="subject">Subject</label>
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" value="{{ form.subject.value|default_if_none:'' }}">
+                        <label for="subject">Subject</label>
+                        <div class="text-danger">{{ form.subject.errors }}</div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-12">
-                <div class="form-floating">
-                  <textarea class="form-control" placeholder="Leave a message here" id="message"
-                    style="height: 100px"></textarea>
-                  <label for="message">Message</label>
+                <div class="col-12">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a message here" id="message" required name="message" style="height: 100px">{{ form.message.value|default_if_none:'' }}</textarea>
+                        <label for="message">Message</label>
+                        <div class="text-danger">{{ form.message.errors }}</div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-12">
-                <button class="btn btn-primary py-2 px-3 me-3">
-                  Send Message
-                  <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
-                    <i class="fa fa-arrow-right"></i>
-                  </div>
-                </button>
-              </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary py-2 px-3 me-3">
+                        Send Message
+                        <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
+                            <i class="fa fa-arrow-right"></i>
+                        </div>
+                    </button>
+                </div>
             </div>
-          </form>
+        </form>
+                <!-- Loading Spinner -->
+                <div class="loading-spinner" id="loading-spinner">
+                  <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                  </div>
+              </div>
         </div>
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 450px;">
           <div class="position-relative rounded overflow-hidden h-100">
@@ -303,6 +331,12 @@
   <a href="https://wa.me/07083659432" target="_blank" class="whatsapp-button">
     <i class="fab fa-whatsapp"></i>
   </a>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function() {
+        document.getElementById('loading-spinner').style.display = 'flex';
+    });
+</script>
   <script>
     document.getElementById('newsletter-form').addEventListener('submit', function(event) {
         event.preventDefault();
