@@ -63,7 +63,7 @@ def contact(request):
                 subject,
                 email_content,
                 settings.EMAIL_HOST_USER,  # From email
-                [settings.CONTACT_EMAIL, 'cmioutreachministry@gmail.com'],  # To email
+                [settings.CONTACT_EMAIL, settings.ALT_CONTACT_EMAIL],  # To email
             )
 
             email_message.content_subtype = 'html'  # Main content is text/html
