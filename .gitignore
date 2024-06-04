@@ -1,4 +1,46 @@
+# Ignore environment variable files
 .env
+
+# Ignore SQLite database file
 db.sqlite3
+
+# Ignore virtual environments
 env_christ_mandate/
 env_cmi/
+venv/
+env/
+
+# Ignore compiled Python files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignore static files
+/staticfiles/
+/media/
+
+# Ignore Django migrations
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Ignore log files
+*.log
+
+# Ignore local settings
+local_settings.py
+
+# Ignore any files with secrets
+secrets.json
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore node_modules if you are using Node.js in your project
+node_modules/
