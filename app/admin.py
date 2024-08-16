@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import CarouselItem, AchievementItem, Newsletter
+from .models import CarouselItem, AchievementItem, Newsletter, ImageGalleryCategory, ImageGallery
 from PIL import Image
 import os
 import csv
@@ -53,3 +53,13 @@ class NewsletterAdmin(admin.ModelAdmin):
     export_as_csv.short_description = "Export Selected to CSV"
 
 admin.site.register(Newsletter, NewsletterAdmin)
+
+@admin.register(ImageGallery)
+class ImageGalleryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'created_at')
+    list_filter = ('category',)
+    search_fields = ('title',)
+
+@admin.register(ImageGalleryCategory)
+class ImageGalleryCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)

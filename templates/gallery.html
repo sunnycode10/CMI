@@ -38,44 +38,61 @@
   <link href="{% static 'lightbox/lightbox.css'%}" rel="stylesheet">
   <style>
     /* Add this to your CSS file or within a <style> tag in your HTML */
-  .message-info {
-    padding: 10px;
+      
+    .newsletter-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 60px;
+      background-color: var(--bs-primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .message-info {
+      padding: 10px;
       color: #ff0000;
       visibility: hidden;
       opacity: 100;
-      /* transform: translateX(-50%) scale(.8); */
       transition: all 0.2s;
       border-left: 8px solid #20509e;
       position: fixed;
       width: auto;
-      /* left: 42%; */
       top: 79%;
       background: white;
       z-index: 1000;
-      /* right: 32%; */
-  }
-  
-  
-  .loader {
-      border: 4px solid #f3f3f3;
+    }
+
+
+    .loader {
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #3498db;
       border-radius: 50%;
-      border-top: 4px solid #3498db;
-      width: 12px;
-      height: 12px;
-      -webkit-animation: spin 2s linear infinite; /* Safari */
-      animation: spin 2s linear infinite;
-  }
-  
-  @-webkit-keyframes spin {
-      0% { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-  }
-    </style>
+      width: 2.5rem;
+      height: 2.5rem;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .fixed-size {
+      height: 250px;
+      width: 100%;
+      object-fit: cover;
+    }
+  </style>
 </head>
 
 
@@ -160,69 +177,73 @@
   </div>
   <!-- Page Header End -->
 
-
   <!-- Gallery Start -->
-  <div class="container-fluid gallery py-5 my-5 px-0">
+  <div class="container gallery py-5 my-5 px-0">
     <div class="text-center mx-auto pb-5" style="max-width: 800px;">
       <h5 class="text-uppercase text-primary">Our work</h5>
       <h1 class="mb-4">Capturing Moments of Impact and Transformation</h1>
       <p class="mb-0">
         Welcome to our gallery, where we showcase the heart and soul of Christ Mandate International Outreach
         Ministries. Through these images, we invite you to witness the transformative power of our mission in action.
-        From feeding programs and medical assistance to evangelistic crusades and community empowerment projects, each
-        photograph tells a story of hope, love, and change.
       </p>
     </div>
-    <div class="row g-4 ">
-      <div class="col-lg-4">
-        <div class="gallery-item">
-          <a href="{% static 'img/gallery/1.psd.jpg'%}" data-lightbox="gallery" data-title="Beauty Of Life">
-            <img src="{% static 'img/gallery/1.psd.jpg'%}" class="img-fluid w-100" alt="">
-          </a>
-          <div class="gallery-content">
-            <div class="gallery-inner pb-5">
-              <a href="#" class="h4 text-white">Beauty Of Life</a>
-              <a href="#" class="text-white">
-                <p class="mb-0">Gallery Name</p>
-              </a>
-            </div>
+
+    <!-- Category Buttons -->
+    <div class="text-center mb-4">
+      <a href="{% url 'gallery' %}"
+        class="btn {% if not category %}btn-primary{% else %}btn-secondary{% endif %} mx-2">All</a>
+      {% for cat in categories %}
+      <a href="{% url 'gallery_by_category' cat.slug %}"
+        class="btn {% if category and category.slug == cat.slug %}btn-primary{% else %}btn-secondary{% endif %} mx-2">{{
+        cat.name }}</a>
+      {% endfor %}
+    </div>
+
+    <!-- Gallery Images -->
+    <div class="row g-4">
+      {% for image in images %}
+      <div class="col-lg-3 gallery-item ">
+        <a href="{{ image.image.url }}" data-lightbox="gallery" data-title="{{ image.title }}">
+          <img src="{{ image.image.url }}" class="fixed-size" alt="{{ image.title }}">
+        </a>
+        <div class="gallery-content">
+          <div class="gallery-inner pb-5 text-primary">
+            <a href="#" class="h4">{{ image.title }}</a>
+            <p class="mb-0 ">{{ image.category.name }}</p>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="gallery-item">
-          <a href="{% static 'img/gallery/5.jpg'%}" data-lightbox="gallery" data-title="Beauty Of Life">
-            <img src="{% static 'img/gallery/5.jpg'%}" class="img-fluid w-100" alt="">
-          </a>
-          <div class="gallery-content">
-            <div class="gallery-inner pb-5">
-              <a href="#" class="h4 text-white">Beauty Of Life</a>
-              <a href="#" class="text-white">
-                <p class="mb-0">Gallery Name</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="gallery-item">
-          <a href="{% static 'img/gallery/3.jpg'%}" data-lightbox="gallery" data-title="Beauty Of Life">
-            <img src="{% static 'img/gallery/3.jpg'%}" class="img-fluid w-100" alt="">
-          </a>
-          <div class="gallery-content">
-            <div class="gallery-inner pb-5">
-              <a href="#" class="h4 text-white">Beauty Of Life</a>
-              <a href="#" class="text-white">
-                <p class="mb-0">Gallery Name</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-center mt-5">
+      <nav>
+        <ul class="pagination">
+          {% if images.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ images.previous_page_number }}">Previous</a></li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+          {% endif %}
+
+          {% for num in images.paginator.page_range %}
+          {% if images.number == num %}
+          <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+          {% endfor %}
+
+          {% if images.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ images.next_page_number }}">Next</a></li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+          {% endif %}
+        </ul>
+      </nav>
     </div>
   </div>
   <!-- Gallery End -->
-
 
 
 
@@ -268,19 +289,20 @@
         <div class="col-lg-3 col-md-6">
           <h5 class="text-light mb-4">Newsletter</h5>
           <p>Stay connected and informed with our newsletter! Join our community and journey with us as we share
-              the latest news and opportunities to be part of God's work around the world. </p>
-          <div class="position-relative mx-auto" style="max-width: 400px;">
+            the latest news and opportunities to be part of God's work around the world. </p>
+            <div class="position-relative mx-auto" style="max-width: 400px;">
               <form id="newsletter-form" method="post" action="{% url 'subscribe_newsletter' %}">
-                  {% csrf_token %}
-                  <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="email" name="email" placeholder="Your email" required>
-                  <button type="submit" class="btn btn-primary py-2 w-100 top-0 end-0 mt-2 me-2">
-                      <span class="button-text">SignUp</span>
-                      <span class="loader" style="display:none;">Loading...</span>
-                  </button>
+                {% csrf_token %}
+                <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="email" name="email"
+                  placeholder="Your email" required>
+                <button type="submit" type="submit" id="newsletterButton" class="newsletter-button mt-2">
+                  SignUp
+                </button>
               </form>
-              <div id="newsletter-message" class="message-info"></div>
-          </div>
-      </div>
+              <div id="newsletter-message" class="message-info">
+              </div>
+            </div>
+        </div>
       </div>
     </div>
     <div class="container-fluid copyright">
@@ -307,55 +329,61 @@
     <i class="fab fa-whatsapp"></i>
   </a>
   <script>
-    document.getElementById('newsletter-form').addEventListener('submit', function(event) {
+    document.addEventListener('DOMContentLoaded', () => {
+      // Handle newsletter form submission
+      document.getElementById('newsletter-form').addEventListener('submit', async (event) => {
         event.preventDefault();
-        var form = event.target;
-        var formData = new FormData(form);
-        var xhr = new XMLHttpRequest();
-        var submitButton = form.querySelector('button');
-        var buttonText = submitButton.querySelector('.button-text');
-        var loader = submitButton.querySelector('.loader');
-        var messageDiv = document.getElementById('newsletter-message');
+        const form = event.target;
+        const formData = new FormData(form);
+        const submitNewsletterButton = document.getElementById("newsletterButton");
+        const newsletterMessageDiv = document.getElementById('newsletter-message');
 
-        // Show loader and hide button text
-        loader.style.display = 'inline';
-        buttonText.style.display = 'none';
+        submitNewsletterButton.innerHTML = '<span class="loader"></span>';
 
-        xhr.open('POST', form.action, true);
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}'); // Make sure the CSRF token is included
-        xhr.onload = function() {
-            // Hide loader and show button text
-            loader.style.display = 'none';
-            buttonText.style.display = 'inline';
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: formData
+          });
 
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                messageDiv.innerHTML = '<span class="text-success">' + response.message + '</span>';
-                form.reset();
-            } else {
-                var errors = JSON.parse(xhr.responseText).errors;
-                var errorMessages = Object.keys(errors).map(function(key) {
-                    return errors[key].join('<br>');
-                }).join('<br>');
-                messageDiv.innerHTML = '<span class="text-danger">' + errorMessages + '</span>';
-            }
+          const data = await response.json();
 
-            // Show message div
-            messageDiv.style.visibility = 'visible';
-            messageDiv.style.opacity = '1';
-            messageDiv.style.transform = 'translateX(-50%) scale(1)';
+          if (response.ok) {
+            newsletterMessageDiv.innerHTML = `<span class="text-success">${data.message}</span>`;
+            form.reset();
+          } else {
+            const errorMessages = data.errors
+              ? Object.values(data.errors).flat().join('<br>')
+              : 'An unexpected error occurred.';
+            newsletterMessageDiv.innerHTML = `<span class="text-danger">${errorMessages}</span>`;
+            // form.reset();
+          }
+        } catch (error) {
+          newsletterMessageDiv.innerHTML = `<span class="text-danger">An error occurred while processing your request.</span>`;
+          form.reset();
+        } finally {
+          // Restore the button content
+          submitNewsletterButton.innerHTML = 'SignUp';
 
-            // Hide message div after 5 seconds
-            setTimeout(function() {
-                messageDiv.style.visibility = 'hidden';
-                messageDiv.style.opacity = '0';
-                messageDiv.style.transform = 'translateX(-50%) scale(.8)';
-            }, 5000);
-        };
-        xhr.send(formData);
-    });
-</script>
+          // Show message div
+          newsletterMessageDiv.style.visibility = 'visible';
+          newsletterMessageDiv.style.opacity = '1';
+          newsletterMessageDiv.style.transform = 'translateX(-50%) scale(1)';
+
+          // Hide message div after 5 seconds
+          setTimeout(() => {
+            newsletterMessageDiv.style.visibility = 'hidden';
+            newsletterMessageDiv.style.opacity = '0';
+            newsletterMessageDiv.style.transform = 'translateX(-50%) scale(.8)';
+          }, 5000);
+        }
+      });
+  });
+  </script>
 
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -369,6 +397,8 @@
 
   <!-- Template Javascript -->
   <script src="{% static 'js/main.js'%}"></script>
+  <script src="{% static 'js/gallery.js'%}"></script>
+
 </body>
 
 </html>
