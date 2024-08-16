@@ -2,7 +2,6 @@
 .env
 
 # Ignore SQLite database file
-db.sqlite3
 
 # Ignore virtual environments
 env_christ_mandate/

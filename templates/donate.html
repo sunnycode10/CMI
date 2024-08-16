@@ -30,48 +30,106 @@
   <!-- Customized Bootstrap Stylesheet -->
   <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
 
-  <!-- Template Stylesheet -->
+  <!--  custom Stylesheet -->
   <link href="{% static 'css/style.css'%}" rel="stylesheet">
   <style>
-    /* Add this to your CSS file or within a <style> tag in your HTML */
-  .message-info {
-    padding: 10px;
-      color: #ff0000;
+    .submit-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      max-width: 100%;
+      height: 60px;
+      background-color: var(--bs-primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      position: relative !important;
+    }
+
+    .submit-button .btn-content {
+      display: flex;
+      align-items: center;
+    }
+
+    .newsletter-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 60px;
+      background-color: var(--bs-primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .message-info {
+      padding: 10px;
       visibility: hidden;
       opacity: 100;
-      /* transform: translateX(-50%) scale(.8); */
       transition: all 0.2s;
-      border-left: 8px solid #20509e;
-      position: fixed;
+      border-left: 8px solid var(--bs-primary);
+      position: absolute;
+      max-width: 100%;
       width: auto;
-      /* left: 42%; */
-      top: 79%;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      text-wrap: wrap;
       background: white;
+      font-size: .8rem;
       z-index: 1000;
-      /* right: 32%; */
-  }
-  
-  
-  .loader {
-      border: 4px solid #f3f3f3;
+      height: auto;
+      max-height: 60px;
+    }
+
+    .message-info-donation {
+      padding: 10px;
+      visibility: hidden;
+      opacity: 100;
+      transition: all 0.2s;
+      border-left: 8px solid var(--bs-primary);
+      max-width: 50%;
+      width: auto;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      text-wrap: wrap;
+      background: white;
+      font-size: .8rem;
+      z-index: 1000;
+      height: auto;
+      max-height: 60px;
+    }
+
+
+
+
+    .loader {
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #3498db;
       border-radius: 50%;
-      border-top: 4px solid #3498db;
-      width: 12px;
-      height: 12px;
-      -webkit-animation: spin 2s linear infinite; /* Safari */
-      animation: spin 2s linear infinite;
-  }
-  
-  @-webkit-keyframes spin {
-      0% { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-  }
-    </style>
+      width: 2.5rem;
+      height: 2.5rem;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -176,41 +234,69 @@
         </div>
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
           <div class="h-100 bg-secondary p-5">
-              <form id="payment-form">
-                  <div class="row g-3">
-                      <div class="col-12">
-                          <div class="form-floating">
-                              <input type="text" class="form-control bg-light border-0" id="name" placeholder="Your Name">
-                              <label for="name">Your Name</label>
-                          </div>
-                      </div>
-                      <div class="col-12">
-                          <div class="form-floating">
-                              <input type="email" class="form-control bg-light border-0" id="email" placeholder="Your Email">
-                              <label for="email">Your Email</label>
-                          </div>
-                      </div>
-                      <div class="col-12">
-                          <div class="form-floating">
-                              <input type="number" class="form-control bg-light border-0" id="amount" placeholder="Desired Donation Amount">
-                              <label for="amount">Desired Donation Amount ($)</label>
-                          </div>
-                      </div>
-                      <div class="col-12">
-                          <button type="submit" class="btn btn-primary px-5" style="height: 60px;">
-                              Donate Now
-                              <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
-                                  <i class="fa fa-arrow-right"></i>
-                              </div>
-                          </button>
-                      </div>
+            <form id="payment-form">
+              <div class="row g-3">
+                <div class="col-12">
+                  <div class="form-floating">
+                    <input type="text" class="form-control bg-light border-0" id="full_name" name="full_name"
+                      placeholder="Your Name" required>
+                    <label for="name">Your Name</label>
                   </div>
-              </form>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating">
+                    <input type="email" class="form-control bg-light border-0" id="email" name="email"
+                      placeholder="Your Email" required>
+                    <label for="email">Your Email</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating">
+                    <input type="number" class="form-control bg-light border-0" id="amount" name="amount"
+                      placeholder="Desired Donation Amount" required>
+                    <label for="amount" id="amount-label">Desired Donation Amount (₦)</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating">
+                    <select class="form-select bg-light border-0" id="donate_as" name="donate_as"
+                      aria-label="Donate as">
+                      <option value="" disabled selected>Donate as</option>
+                      <option value="individual">Individual</option>
+                      <option value="ministry">Ministry</option>
+                      <option value="organisation">Organisation</option>
+                    </select>
+                    <label for="donate-as">Donate as</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating">
+                    <select class="form-select bg-light border-0" id="currency" name="currency" aria-label="Currency">
+                      <option value="NGN" selected>₦ Naira</option>
+                      <option value="USD">$ Dollar</option>
+                    </select>
+                    <label for="currency">Currency</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" id="donateButton" class="submit-button">
+                    <div class="btn-content">
+                      Donate Now
+                      <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
+                        <i class="fa fa-arrow-right"></i>
+                      </div>
+                    </div>
+                  </button>
+                  <div id="donationMessageInfo" class="message-info-donation mt-2">
+                    <span class="text-danger">message from donation </span>
+                  </div>
+            </form>
           </div>
+        </div>
       </div>
-      
-      </div>
+
     </div>
+  </div>
   </div>
   <!-- Donate End -->
 
@@ -258,19 +344,20 @@
         <div class="col-lg-3 col-md-6">
           <h5 class="text-light mb-4">Newsletter</h5>
           <p>Stay connected and informed with our newsletter! Join our community and journey with us as we share
-              the latest news and opportunities to be part of God's work around the world. </p>
+            the latest news and opportunities to be part of God's work around the world. </p>
           <div class="position-relative mx-auto" style="max-width: 400px;">
-              <form id="newsletter-form" method="post" action="{% url 'subscribe_newsletter' %}">
-                  {% csrf_token %}
-                  <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="email" name="email" placeholder="Your email" required>
-                  <button type="submit" class="btn btn-primary py-2 w-100 top-0 end-0 mt-2 me-2">
-                      <span class="button-text">SignUp</span>
-                      <span class="loader" style="display:none;">Loading...</span>
-                  </button>
-              </form>
-              <div id="newsletter-message" class="message-info"></div>
+            <form id="newsletter-form" method="post" action="{% url 'subscribe_newsletter' %}">
+              {% csrf_token %}
+              <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="email" name="email"
+                placeholder="Your email" required>
+              <button type="submit" type="submit" id="newsletterButton" class="newsletter-button mt-2">
+                SignUp
+              </button>
+            </form>
+            <div id="newsletter-message" class="message-info">
+            </div>
           </div>
-      </div>
+        </div>
       </div>
     </div>
     <div class="container-fluid copyright">
@@ -297,56 +384,127 @@
     <i class="fab fa-whatsapp"></i>
   </a>
   <script>
-    document.getElementById('newsletter-form').addEventListener('submit', function(event) {
+    document.addEventListener('DOMContentLoaded', () => {
+      // Handle newsletter form submission
+      document.getElementById('newsletter-form').addEventListener('submit', async (event) => {
         event.preventDefault();
-        var form = event.target;
-        var formData = new FormData(form);
-        var xhr = new XMLHttpRequest();
-        var submitButton = form.querySelector('button');
-        var buttonText = submitButton.querySelector('.button-text');
-        var loader = submitButton.querySelector('.loader');
-        var messageDiv = document.getElementById('newsletter-message');
+        const form = event.target;
+        const formData = new FormData(form);
+        const submitNewsletterButton = document.getElementById("newsletterButton");
+        const newsletterMessageDiv = document.getElementById('newsletter-message');
 
-        // Show loader and hide button text
-        loader.style.display = 'inline';
-        buttonText.style.display = 'none';
+        submitNewsletterButton.innerHTML = '<span class="loader"></span>';
 
-        xhr.open('POST', form.action, true);
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}'); // Make sure the CSRF token is included
-        xhr.onload = function() {
-            // Hide loader and show button text
-            loader.style.display = 'none';
-            buttonText.style.display = 'inline';
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: formData
+          });
 
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                messageDiv.innerHTML = '<span class="text-success">' + response.message + '</span>';
-                form.reset();
-            } else {
-                var errors = JSON.parse(xhr.responseText).errors;
-                var errorMessages = Object.keys(errors).map(function(key) {
-                    return errors[key].join('<br>');
-                }).join('<br>');
-                messageDiv.innerHTML = '<span class="text-danger">' + errorMessages + '</span>';
-            }
+          const data = await response.json();
 
-            // Show message div
-            messageDiv.style.visibility = 'visible';
-            messageDiv.style.opacity = '1';
-            messageDiv.style.transform = 'translateX(-50%) scale(1)';
+          if (response.ok) {
+            newsletterMessageDiv.innerHTML = `<span class="text-success">${data.message}</span>`;
+            form.reset();
+          } else {
+            const errorMessages = data.errors
+              ? Object.values(data.errors).flat().join('<br>')
+              : 'An unexpected error occurred.';
+            newsletterMessageDiv.innerHTML = `<span class="text-danger">${errorMessages}</span>`;
+            // form.reset();
+          }
+        } catch (error) {
+          newsletterMessageDiv.innerHTML = `<span class="text-danger">An error occurred while processing your request.</span>`;
+          form.reset();
+        } finally {
+          // Restore the button content
+          submitNewsletterButton.innerHTML = 'SignUp';
 
-            // Hide message div after 5 seconds
-            setTimeout(function() {
-                messageDiv.style.visibility = 'hidden';
-                messageDiv.style.opacity = '0';
-                messageDiv.style.transform = 'translateX(-50%) scale(.8)';
-            }, 5000);
-        };
-        xhr.send(formData);
+          // Show message div
+          newsletterMessageDiv.style.visibility = 'visible';
+          newsletterMessageDiv.style.opacity = '1';
+          newsletterMessageDiv.style.transform = 'translateX(-50%) scale(1)';
+
+          // Hide message div after 5 seconds
+          setTimeout(() => {
+            newsletterMessageDiv.style.visibility = 'hidden';
+            newsletterMessageDiv.style.opacity = '0';
+            newsletterMessageDiv.style.transform = 'translateX(-50%) scale(.8)';
+          }, 5000);
+        }
+      });
+
+
+      // Handle currency change for amount label
+      document.getElementById('currency').addEventListener('change', (event) => {
+        const selectedCurrency = event.target.value;
+        const amountLabel = document.querySelector('label[for="amount"]');
+        const symbol = selectedCurrency === 'NGN' ? '₦' : '$';
+        amountLabel.innerHTML = `Desired Donation Amount (${symbol})`;
+      });
+
+      // Handle donation form submission
+      document.getElementById('payment-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const submitDonationButton = document.getElementById('donateButton');
+        const donationMessageDiv = document.getElementById('donationMessageInfo');
+
+        submitDonationButton.innerHTML = '';
+        const loader = document.createElement('div');
+        loader.className = 'loader';
+        submitDonationButton.appendChild(loader);  // Append loader to the submit button
+
+        try {
+          const response = await fetch('{% url "initiate_payment" %}', {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: formData
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.payment_url) {
+            donationMessageDiv.innerHTML = `<span class="text-success">Redirecting to Payment </span>`;
+            form.reset();
+            window.location.href = data.payment_url;
+          } else {
+            const errorMessages = data.error
+            donationMessageDiv.innerHTML = `<span class="text-danger">${errorMessages}</span>`;
+          }
+        } catch (error) {
+          donationMessageDiv.innerHTML = `<span class="text-danger">An error occurred while processing your request.</span>`;
+        } finally {
+          submitDonationButton.innerHTML = `
+        <div class="btn-content">
+          Donate Now
+          <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>`;
+          // Show message div
+          donationMessageDiv.style.visibility = 'visible';
+          donationMessageDiv.style.opacity = '1';
+          donationMessageDiv.style.transform = 'translateX(-50%) scale(1)';
+
+          // Hide message div after 5 seconds
+          setTimeout(() => {
+            donationMessageDiv.style.visibility = 'hidden';
+            donationMessageDiv.style.opacity = '0';
+            donationMessageDiv.style.transform = 'translateX(-50%) scale(.8)';
+          }, 5000);
+        }
+      });
     });
-</script>
-
+  </script>
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

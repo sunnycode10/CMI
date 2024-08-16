@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import CarouselItem, AchievementItem
+from .models import CarouselItem, AchievementItem, ImageGalleryCategory, ImageGallery
 from django.conf import settings
 from .forms import NewsletterForm, ContactForm
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 # Create your views here.
 
 from django.core.mail import EmailMultiAlternatives
@@ -30,8 +31,25 @@ def programs(request):
 def events(request):
     return render(request, 'events.html')
 
-def gallery(request):
-    return render(request, 'gallery.html')
+def gallery_view(request, category_slug=None):
+    category = None
+    categories = ImageGalleryCategory.objects.all()
+    images = ImageGallery.objects.all()
+
+    if category_slug:
+        category = get_object_or_404(ImageGalleryCategory, slug=category_slug)
+        images = images.filter(category=category)
+
+    paginator = Paginator(images, 8)  # Display 9 images per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'category': category,
+        'categories': categories,
+        'images': page_obj,
+    }
+    return render(request, 'gallery.html', context)
 
 def videos(request):
   context = {

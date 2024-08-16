@@ -2,8 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from PIL import Image
 import os
-
-
+from django.utils.text import slugify
 class CarouselItem(models.Model):
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)
@@ -45,8 +44,6 @@ class AchievementItem(models.Model):
 class Newsletter(models.Model):
     email = models.EmailField(unique=True)
     has_made_donation = models.BooleanField(default=False)
-    first_name = models.CharField(max_length=100, blank=True, null=True)
-    last_name = models.CharField(max_length=100, blank=True, null=True)
     subscribed_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -62,3 +59,28 @@ class ContactMessage(models.Model):
 
   def __str__(self):
     return f'{self.email} +  {self.name}'
+
+
+
+class ImageGalleryCategory(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+class ImageGallery(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)   
+    image = models.ImageField(upload_to='gallery/')
+    category = models.ForeignKey(ImageGalleryCategory, related_name='images', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
