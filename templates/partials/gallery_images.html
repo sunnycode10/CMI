@@ -1,0 +1,19 @@
+<div class="row g-4">
+    {% for image in images %}
+        <div class="col-lg-4">
+            <div class="gallery-item">
+                <a href="{{ image.image.url }}" data-lightbox="gallery" data-title="{{ image.title }}">
+                    <img src="{{ image.image.url }}" class="img-fluid w-100 fixed-size" alt="{{ image.title }}">
+                </a>
+                <div class="gallery-content">
+                    <div class="gallery-inner pb-5">
+                        <a href="#" class="h4 text-white">{{ image.title }}</a>
+                        <a href="#" class="text-white">
+                            <p class="mb-0">{{ image.category.name }}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

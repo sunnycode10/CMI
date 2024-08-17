@@ -40,14 +40,17 @@ def gallery_view(request, category_slug=None):
         category = get_object_or_404(ImageGalleryCategory, slug=category_slug)
         images = images.filter(category=category)
 
-    paginator = Paginator(images, 8)  # Display 9 images per page
+    paginator = Paginator(images, 9)
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    images = paginator.get_page(page_number)
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return render(request, 'partials/gallery_images.html', {'images': images})
 
     context = {
         'category': category,
         'categories': categories,
-        'images': page_obj,
+        'images': images,
     }
     return render(request, 'gallery.html', context)
 
