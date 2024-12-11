@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-9=df^1skw63b3(x&b5je$6b_m=2$e%^o@t&cgs&tfje^w6j%al
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['christmandateinternational.com', 'www.christmandateinternational.com', '127.0.0.1']
+ALLOWED_HOSTS = ['christmandateinternational.com', 'www.christmandateinternational.com', '127.0.0.1', '74.50.85.136']
 
 
 # Application definition
@@ -154,3 +154,4 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL')
 
 ALT_CONTACT_EMAIL = os.environ.get('ALT_CONTACT_EMAIL')
+print(f'{EMAIL_HOST_USER}=== {EMAIL_HOST_PASSWORD}==={CONTACT_EMAIL}==={ALT_CONTACT_EMAIL}')
